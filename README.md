@@ -1,5 +1,5 @@
 # fs_taxi
-<a href="https://discord.gg/Cgr5FU6" title="Chat on Discord"><img alt="Discord Status" src="https://discordapp.com/api/guilds/285462938691567627/widget.png"></a>
+<a href="https://discord.gg/Cgr5FU6" title="Chat on Discord"><img alt="Discord Status" src="https://discordapp.com/api/guilds/285462938691567627/widget.png"></a>    
 **Note** this project is currently in development.    
 
 ## Requirements
