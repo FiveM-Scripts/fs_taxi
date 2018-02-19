@@ -83,7 +83,8 @@ local function SpawnTaxi()
 
 	if not DoesEntityExist(taxiVeh) then
 		DisplayNotify(i18n.translate("taxi_contact"), i18n.translate("taxi_dispatch"))
-		Wait(2000)
+		PlaySoundFrontend(-1, "Text_Arrive_Tone", "Phone_SoundSet_Default", 1)
+		Wait(2500)
 
 		RequestModel(taxiModel)
 		RequestModel(driverModel)
@@ -132,15 +133,20 @@ AddEventHandler("OnPlayerDied", function()
 	end
 end)
 
+RegisterCommand('taxi', function()
+	if not IsPedInAnyVehicle(PlayerPedId(), false) then
+		SpawnTaxi()
+	end
+end)
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1)
 		if not IsPedInAnyVehicle(PlayerPedId(), false) then
 			PopulateTaxiIndex()
-		end
-
-		if IsControlJustPressed(0, 168) then
-			SpawnTaxi()
+			if IsControlJustPressed(0, 168) then
+				SpawnTaxi()
+			end	
 		end
 
 		if data then
