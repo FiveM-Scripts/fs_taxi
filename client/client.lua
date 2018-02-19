@@ -24,7 +24,7 @@ end
 function PopulateTaxiIndex()
 	local handle, vehicle = FindFirstVehicle()
 	local finished = false
-	
+
 	repeat
 		if DoesEntityExist(vehicle) then
 			if IsVehicleDriveable(vehicle) then
@@ -77,7 +77,7 @@ local function SpawnTaxi()
 		while not HasModelLoaded(driverModel) do
 			Wait(0)
 		end
-		
+
 		taxiVeh = CreateVehicle(taxiModel, sX, sY, sZ, 0, true, false)
 		taxiPed = CreatePedInsideVehicle(taxiVeh, 26, driverModel, -1, true, false)
 
