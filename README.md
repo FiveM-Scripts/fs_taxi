@@ -2,6 +2,9 @@
 <a href="https://discord.gg/Cgr5FU6" title="Chat on Discord"><img alt="Discord Status" src="https://discordapp.com/api/guilds/285462938691567627/widget.png"></a>    
 **Note** this project is currently in development.    
 
+- Press `F7` or use the `/taxi` chat command to call a taxi cab.
+- Press `E` to enter the vehicle as a passenger or `F` to steal the vehicle.
+
 ## Requirements
 - [FXServer](https://wiki.fivem.net/wiki/Running_FXServer)
 - [EssentialMode](https://forum.fivem.net/t/release-essentialmode-base)
