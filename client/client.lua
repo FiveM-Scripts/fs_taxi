@@ -24,6 +24,7 @@ i18n.setLang("en")
 taxiBlip = nil
 taxiVeh = nil
 taxiPed = nil 
+HornToInform = false
 data = {}
 
 function DisplayHelpMsg(text)
@@ -51,7 +52,7 @@ function PopulateTaxiIndex()
 					local Px, Py, Pz = table.unpack(GetEntityCoords(PlayerPedId(), true))
 					local driver = GetPedInVehicleSeat(vehicle, -1)
 					if driver then
-						if GetDistanceBetweenCoords(Px, Py, Pz, x, y, z, true) < 8.0 then
+						if GetDistanceBetweenCoords(Px, Py, Pz, x, y, z, true) <= 18.0 then
 						TaxiInfoTimer = GetGameTimer()							
 							if GetGameTimer() < TaxiInfoTimer + 15000 then
 								DisplayHelpMsg(i18n.translate("info_message"))
@@ -100,7 +101,8 @@ local function SpawnTaxi()
 		taxiVeh = CreateVehicle(taxiModel, sX, sY, sZ, 0, true, false)
 		taxiPed = CreatePedInsideVehicle(taxiVeh, 26, driverModel, -1, true, false)
 
-		SetVehicleEngineOn(taxiVeh, true)
+		SetEntityAsMissionEntity(taxiVeh, true, true)
+		SetVehicleEngineOn(taxiVeh, true)		
 		SetAmbientVoiceName(taxiPed, "A_M_M_EASTSA_02_LATINO_FULL_01")
 
 		if not DoesBlipExist(taxiBlip) then
@@ -110,8 +112,8 @@ local function SpawnTaxi()
 			SetBlipFlashTimer(taxiBlip, 8000)
 		end
 
-		SetModelAsNoLongerNeeded(taxiModel)
-		SetModelAsNoLongerNeeded(driverModel)
+			SetModelAsNoLongerNeeded(taxiModel)
+			SetModelAsNoLongerNeeded(driverModel)
 	else
 		DisplayNotify(i18n.translate("taxi_contact"), i18n.translate("drivers_busy"))
 	end	
@@ -120,17 +122,6 @@ end
 AddEventHandler("playerSpawned", function()
 	Wait(15000)
 	DisplayNotify(false, i18n.translate("welcome_message"))
-end)
-
-AddEventHandler("OnPlayerDied", function()
-	data = {}
-
-	if DoesEntityExist(taxiVeh) then
-		SetEntityAsNoLongerNeeded(taxiVeh)
-		SetEntityAsNoLongerNeeded(taxiPed)
-
-		RemoveBlip(taxiBlip)
-	end
 end)
 
 RegisterCommand('taxi', function()
@@ -150,9 +141,23 @@ Citizen.CreateThread(function()
 		end
 
 		if data then
+			if DoesEntityExist(data.vehicle) then
+				if not HornToInform then
+					if GetIsVehicleEngineRunning(taxiVeh) then
+						SetHornEnabled(taxiVeh, true)
+						StartVehicleHorn(taxiVeh, 2000, GetHashKey("HELDDOWN"), false)
+					end
+					HornToInform = true
+				end
+			end
+
 			if IsControlJustPressed(0, 38) then
+				for k,v in pairs(data) do
+					print(k,v)
+				end
+
 				local TaxiDriver = GetPedInVehicleSeat(data.vehicle, -1)
-				SetBlockingOfNonTemporaryEvents(data.driver, true)
+				--SetBlockingOfNonTemporaryEvents(data.driver, true)
 
 				if not IsPedInVehicle(PlayerPedId(), data.vehicle, false) then
 					TaskEnterVehicle(PlayerPedId(), data.vehicle, -1, 1, 1.0, 1, 0)
@@ -168,22 +173,38 @@ Citizen.CreateThread(function()
 					PlayAmbientSpeech1(data.driver, "TAXID_WHERE_TO", "SPEECH_PARAMS_FORCE_NORMAL")
 					questionDest = true
 				end
+
+				if IsDestinationSet then
+					-- drive horse drive!
+				end
 			else
 				questionDest = false
 			end
 		end
 
-		if not DoesEntityExist(taxiVeh) or IsEntityDead(taxiVeh) then
+		if IsEntityDead(taxiVeh) then
 			if DoesBlipExist(taxiBlip) then
 				RemoveBlip(taxiBlip)
 			end
 
-			if DoesEntityExist(taxiPed) then
-				SetEntityAsNoLongerNeeded(taxiPed)
-				taxiPed = nil
-			end
-			taxiVeh = nil
+			DeleteEntity(taxiPed)
+			DeleteEntity(taxiVeh)
+			HornToInform = false
+			data = {}			
 		end
+
+		if IsPlayerDead(PlayerId()) then			
+			if DoesEntityExist(taxiVeh) then
+				RemoveBlip(taxiBlip)				
+			end
+
+			DeleteEntity(taxiPed)
+			DeleteEntity(taxiVeh)
+
+			HornToInform = false
+			data = {}
+		end
+
 
 	end
 end)
