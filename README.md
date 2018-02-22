@@ -5,8 +5,7 @@
 
 - Press `F7` or use the `/taxi` chat command to call a taxi cab.
 - Press `E` to enter the vehicle as a passenger or `F` to steal the vehicle.
-- Select your waypoint on the map then.
-- Press `E` to drive to the location or `spacebar` if you are in a hurry.
+- Select your waypoint on the map then press `E` to drive to the location or `spacebar` if you are in a hurry.
 
 ## Contribute
 If you would like to contribute to this project then please [create a fork](https://github.com/FiveM-Scripts/fs_taxi#fork-destination-box).
