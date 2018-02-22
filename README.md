@@ -9,8 +9,8 @@
 - Select your waypoint on the map then press `E` to drive to the location or `spacebar` if you are in a hurry.
 
 ## Contribute
-If you would like to contribute to this project then please [create a fork](https://github.com/FiveM-Scripts/fs_taxi#fork-destination-box).
-Push your changes to your fork and create a [pull request](https://help.github.com/articles/creating-a-pull-request).
+If you would like to contribute to this project then please [create a fork](https://github.com/FiveM-Scripts/fs_taxi#fork-destination-box).    
+Push your changes to your fork and create a [pull request](https://help.github.com/articles/creating-a-pull-request) with your changes.
 
 ## Requirements
 - [FXServer](https://wiki.fivem.net/wiki/Running_FXServer)
