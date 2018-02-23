@@ -118,6 +118,7 @@ local function SpawnTaxi()
 			Wait(0)
 		end
 
+
 		taxiVeh = CreateVehicle(taxiModel, sX, sY, sZ, 0, true, false)
 		taxiPed = CreatePedInsideVehicle(taxiVeh, 26, driverModel, -1, true, false)
 
@@ -219,13 +220,14 @@ Citizen.CreateThread(function()
 
 				if DoesBlipExist(GetFirstBlipInfoId(8)) then
 					dx, dy, dz = table.unpack(Citizen.InvokeNative(0xFA7C7F0AADF25D09, GetFirstBlipInfoId(8), Citizen.ResultAsVector()))
-					local z = getGroundZ(dx, dy, dz)
+					z = getGroundZ(dx, dy, dz)
+
 					if IsControlJustPressed(0, 38) then
 						PlayAmbientSpeech1(data.driver, "TAXID_BEGIN_JOURNEY", "SPEECH_PARAMS_FORCE_NORMAL")
 						cx, cy, cz = table.unpack(GetEntityCoords(PlayerPedId(), true))
 
-						disttom = CalculateTravelDistanceBetweenPoints(cx, cy, cz, dx, dy, dz)
-						TaskVehicleDriveToCoordLongrange(data.driver, data.vehicle, dx, dy, z, 25.0, 411, 10.0)
+						disttom = CalculateTravelDistanceBetweenPoints(cx, cy, cz, dx, dy, z)
+						TaskVehicleDriveToCoordLongrange(data.driver, data.vehicle, dx, dy, z, 25.0, 411, 30.0)
 						SetPedKeepTask(data.driver, true)
 					end
 
@@ -233,14 +235,13 @@ Citizen.CreateThread(function()
 						PlayAmbientSpeech1(data.driver, "TAXID_SPEED_UP", "SPEECH_PARAMS_FORCE_NORMAL")
 						cx, cy, cz = table.unpack(GetEntityCoords(PlayerPedId(), true))
 
-						TaskVehicleDriveToCoordLongrange(data.driver, data.vehicle, dx, dy, z, 28.0, 286, 10.0)
+						TaskVehicleDriveToCoordLongrange(data.driver, data.vehicle, dx, dy, z, 28.0, 318, 30.0)
 						SetPedKeepTask(data.driver, true)
 					end
-
 				end
 
 				pcoords = GetEntityCoords(PlayerPedId(), true)
-				if GetDistanceBetweenCoords(pcoords.x, pcoords.y, pcoords.z, dx, dy, z, false) <= 11.0 then
+				if GetDistanceBetweenCoords(pcoords.x, pcoords.y, pcoords.z, dx, dy, z, false) <= 50.0 then
 					SetVehicleHandbrake(data.vehicle, true)
 					if not reachedDest then
 						PlayAmbientSpeech1(data.driver, "TAXID_CLOSE_AS_POSS", "SPEECH_PARAMS_FORCE_NORMAL")
@@ -277,6 +278,17 @@ Citizen.CreateThread(function()
 			taxiService = false
 			HornToInform = false
 			data = {}
+		end
+
+		if taxiService then
+			if not IsPedInAnyTaxi(PlayerPedId()) then
+				ocoords = GetEntityCoords(PlayerPedId(), true)
+				vehcoords = GetEntityCoords(data.vehicle, true)
+
+				if GetDistanceBetweenCoords(ocoords.x, ocoords.y, ocoords.z, vehcoords.x, vehcoords.y, vehcoords.z, true) > 10.0 then
+					DeleteTaxi(data.vehicle, data.driver)
+				end
+			end
 		end
 
 	end
