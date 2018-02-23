@@ -1,9 +1,10 @@
 # fs_taxi
 
-[![Version](https://img.shields.io/badge/Version-v1.0-brightgreen.svg)]()
+[![Version](https://img.shields.io/badge/Version-v1.1-brightgreen.svg)]()
 <a href="https://discord.gg/Cgr5FU6" title="Chat on Discord"><img alt="Discord Status" src="https://discordapp.com/api/guilds/285462938691567627/widget.png"></a>    
 **Note** this project is currently in development.    
 
+## Usage
 - Press `F7` or use the `/taxi` chat command to call a taxi cab.
 - Press `E` to enter the vehicle as a passenger or `F` to steal the vehicle.
 - Select your waypoint on the map then press `E` to drive to the location or `spacebar` if you are in a hurry.
