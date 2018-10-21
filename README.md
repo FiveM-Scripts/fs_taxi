@@ -1,7 +1,7 @@
 # fs_taxi
 
 [![Version](https://img.shields.io/badge/Version-v1.1-brightgreen.svg)]()
-<a href="https://discord.gg/Cgr5FU6" title="Chat on Discord"><img alt="Discord Status" src="https://discordapp.com/api/guilds/285462938691567627/widget.png"></a>    
+<a href="https://discordapp.com/invite/qnAqCEd" title="Chat on Discord"><img alt="Discord Status" src="https://discordapp.com/api/guilds/285462938691567627/widget.png"></a>    
 **Note** this project is currently in development.    
 
 ## Usage
