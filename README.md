@@ -7,7 +7,7 @@
 ## Requirements
 - [FXServer](https://wiki.fivem.net/wiki/Running_FXServer)
 - [EssentialMode](https://forum.fivem.net/t/release-essentialmode-base) (optional)
-- [Venomous freemode]() (optional)
+- [Venomous freemode](https://github.com/FiveM-Scripts/venomous-freemode) (optional)
 
 ## Installation
 - Download the resource and copy the files to **resources/fs_taxi**.
@@ -23,10 +23,6 @@
 ## Contribute
 If you would like to contribute to this project then please [create a fork](https://github.com/FiveM-Scripts/fs_taxi#fork-destination-box).    
 Push your changes to your fork and create a [pull request](https://help.github.com/articles/creating-a-pull-request) with your changes.
-
-## Compatible resources
-- [EssentialMode](https://forum.fivem.net/t/release-essentialmode-base)
-- [Freemode](https://github.com/FiveM-Scripts/fs_freemode)
 
 ## License
 This resource is released under the [GNU GPLv3](LICENSE) license.
